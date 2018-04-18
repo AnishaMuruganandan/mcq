@@ -16,7 +16,7 @@
         <span class="fontstyle pagenostyle" id="questionNo"></span>
       </div>
       <div class="question">
-        <span class="fontstyle questionstyle" id="question">Hi. what is your Name and age? Kindly choose below answer</span>
+        <span class="fontstyle questionstyle" id="question"></span>
       </div>
       <div class="circle leftcircle">
       </div>
@@ -104,6 +104,7 @@
       console.log('common data', data);
 
       document.getElementById('questionNo').innerHTML = "Question " + questionNoStart + " out of " + questionNoEnd;
+      document.getElementById('question').innerHTML = data[0].question;
     }).catch(function(reason) {
       console.log('reason for rejection', reason)
     });
