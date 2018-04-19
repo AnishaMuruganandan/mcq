@@ -42,7 +42,7 @@
 
     </div>
     <div class="footer">
-      <div class="previousButton">
+      <div class="previousButton" id="prevButton">
         <span class="fontstyle previousbuttonstyle" id="previous">Previous</span>
       </div>
       <div class="timer">
@@ -60,13 +60,18 @@
 
 <!--
 <script src="//code.jquery.com/jquery-1.6.2.min.js "></script> -->
-<script src="http://code.jquery.com/jquery-1.6.2.min.js "></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript ">
   var result;
   var questionNoStart;
   var questionNoEnd;
+  var dataposition;
+  jsonObj = [];
   //  e.preventDefault();
   $(document).ready(function() {
+
+    $('#previous').off('click');
+
     console.log('hey');
     console.log('first call from mcq app');
 
@@ -75,7 +80,6 @@
         $.ajax({
           type: 'GET',
           url: '/mcqFetching',
-
           // result = data;
           // console.log(data);
           success: function(data) {
@@ -88,34 +92,114 @@
           error: function(xhr) {
             reject(xhr)
           }
-
-
         });
-
       });
     }
-
-
     // console.log('result', result);
     //  ajax();
     ajax().then(function(data) {
-
+      dataposition = 0;
       console.log('result', result);
       console.log('common data', data);
+      $('#questionNo').html("Question " + questionNoStart + " out of " + questionNoEnd);
+      $('#question').html(data[dataposition].question);
 
-      document.getElementById('questionNo').innerHTML = "Question " + questionNoStart + " out of " + questionNoEnd;
-      document.getElementById('question').innerHTML = data[0].question;
+      $('#optiona').html(data[dataposition].optiona);
+      $('#optionb').html(data[dataposition].optionb);
+      $('#optionc').html(data[dataposition].optionc);
+      $('#optiond').html(data[dataposition].optiond);
+
     }).catch(function(reason) {
       console.log('reason for rejection', reason)
     });
   });
-
   $('#next').click(function() {
+
+
+
+    $('#previous').on('click', previousclick);
+
+    console.log(questionNoStart);
+    console.log(result.length - 1);
+
+
+    if (questionNoStart == (result.length - 1)) {
+      $('#next').html("submit");
+    }
+
+    dataposition += 1;
+    questionNoStart += 1;
+
+
+    $('#questionNo').html("Question " + questionNoStart + " out of " + questionNoEnd);
+    $('#question').html(result[dataposition].question);
+
+    $('#optiona').html(result[dataposition].optiona);
+    $('#optionb').html(result[dataposition].optionb);
+    $('#optionc').html(result[dataposition].optionc);
+    $('#optiond').html(result[dataposition].optiond);
+
+
+
+
 
   });
 
-  $('#previous').click(function() {
 
+  function previousclick() {
+    $('#next').html("Next");
+    console.log(questionNoStart);
+    console.log(result.length - 1);
+    if (questionNoStart == 2) {
+      $('#previous').off('click');
+    }
+    dataposition -= 1;
+    questionNoStart -= 1;
+
+    $('#questionNo').html("Question " + questionNoStart + " out of " + questionNoEnd);
+    $('#question').html(result[dataposition].question);
+
+    $('#optiona').html(result[dataposition].optiona);
+    $('#optionb').html(result[dataposition].optionb);
+    $('#optionc').html(result[dataposition].optionc);
+    $('#optiond').html(result[dataposition].optiond);
+
+
+
+
+  }
+  var j = 0;
+  $('#optiona').click(function() {
+    item = {};
+
+    item["questionNo"] = questionNoStart;
+    item["answer"] = "a";
+
+    jsonObj.push(item);
+    console.log(jsonObj);
+  });
+  $('#optionb').click(function() {
+    item = {};
+
+    item["questionNo"] = questionNoStart;
+    item["answer"] = "b";
+
+    jsonObj.push(item);
+    console.log(jsonObj);
+  });
+  $('#optionc').click(function() {
+
+    item["questionNo"] = questionNoStart;
+    item["answer"] = "c";
+
+    jsonObj.push(item);
+  });
+  $('#optiond').click(function() {
+
+    item["questionNo"] = questionNoStart;
+    item["answer"] = "d";
+
+    jsonObj.push(item);
   });
 </script>
 
