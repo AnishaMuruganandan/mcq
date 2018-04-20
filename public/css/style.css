@@ -21,6 +21,7 @@ font-size: 15px;
   }
 .card{
   left: 50%;
+
   transform: translate(-50%,-50%);
   top: 40%;
   position: relative;
@@ -185,6 +186,7 @@ margin-top: 40px;
 
 }
 .registrationcard{
+    height: 100%;
       padding: 150px 100px;
   width: 100%;
   background-color: #BBDEFB;
@@ -247,4 +249,9 @@ border-radius: 75px;
   color: black;
   font-weight: 600;
   font-size: 13px;
+}
+.resultstyle{
+
+      font-size: 13px;
+      color: black;  
 }
