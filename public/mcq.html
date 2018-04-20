@@ -125,6 +125,9 @@
 
     if (questionNoStart == (result.length - 1)) {
       $('#next').html("submit");
+      $('#next').attr('id', 'submit');
+
+      console.log('id changed' + $('#submit').attr('id'));
     }
 
     dataposition += 1;
@@ -169,37 +172,100 @@
 
   }
   var j = 0;
+  var returnedvalue;
   $('#optiona').click(function() {
     item = {};
+    returnedvalue = findingindex();
+    if (returnedvalue == -1) {
+      item["questionNo"] = questionNoStart;
+      item["answer"] = "a";
 
-    item["questionNo"] = questionNoStart;
-    item["answer"] = "a";
+      jsonObj.push(item);
 
-    jsonObj.push(item);
+    } else {
+      jsonObj[returnedvalue].answer = "a";
+    }
     console.log(jsonObj);
   });
   $('#optionb').click(function() {
     item = {};
+    returnedvalue = findingindex();
+    if (returnedvalue == -1) {
+      item["questionNo"] = questionNoStart;
+      item["answer"] = "b";
 
-    item["questionNo"] = questionNoStart;
-    item["answer"] = "b";
-
-    jsonObj.push(item);
+      jsonObj.push(item);
+    } else {
+      jsonObj[returnedvalue].answer = "b";
+    }
     console.log(jsonObj);
   });
   $('#optionc').click(function() {
+    item = {};
+    returnedvalue = findingindex();
+    console.log(returnedvalue);
+    if (returnedvalue == -1) {
+      item["questionNo"] = questionNoStart;
+      item["answer"] = "c";
 
-    item["questionNo"] = questionNoStart;
-    item["answer"] = "c";
-
-    jsonObj.push(item);
+      jsonObj.push(item);
+    } else {
+      jsonObj[returnedvalue].answer = "c";
+    }
+    console.log(jsonObj);
   });
   $('#optiond').click(function() {
+    item = {};
+    returnedvalue = findingindex();
+    if (returnedvalue == -1) {
+      item["questionNo"] = questionNoStart;
+      item["answer"] = "d";
 
-    item["questionNo"] = questionNoStart;
-    item["answer"] = "d";
+      jsonObj.push(item);
+    } else {
+      jsonObj[returnedvalue].answer = "d";
+    }
+    console.log(jsonObj);
+  });
+  var bool = false;
+  var index;
 
-    jsonObj.push(item);
+  function findingindex() {
+    $.each(jsonObj, function(i, item) {
+
+      if (jsonObj[i].questionNo == questionNoStart) {
+        bool = true;
+        index = i;
+      }
+    });
+    if (bool == false) {
+
+
+      console.log("inside fun");
+      index = -1;
+
+    } else {
+
+      bool = false;
+    }
+    return index;
+  }
+  var marks = 0;
+  $('#submit').click(function() {
+
+    $.each(result, function(i, item) {
+      $.each(jsonObj, function(j, jsonkey) {
+        if (result[i].questionno == jsonObj[j].questionNo) {
+          if (result[i].answer == jsonObj[i].answer) {
+            marks += 1;
+          }
+          break;
+        }
+      })
+
+    })
+    console.log('marks ' + marks);
+
   });
 </script>
 
