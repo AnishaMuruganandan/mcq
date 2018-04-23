@@ -10,10 +10,13 @@
 <body>
   <div class="registrationpage">
     <div class="registrationcard">
-      <div class="photo photooutline">
-
+      <div class="heading">
+        <span class="headingstyle fontstyle">Register Here
+    </span>
       </div>
       <div class="inputbox">
+
+
         <div class="name">
           <input type="text" name="FirstName" class="fontstyle nameboxstyle" id="nameinput" placeholder="Enter your Name"><br>
         </div>
@@ -40,35 +43,9 @@
   </div>
 
 </body>
-
-
-<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-
-<script type=" text/javascript ">
-  $('#registerbutton').click(function(e) {
-    e.preventDefault();
-    console.log('button clicked');
-
-    var data = {};
-    data.a = $('#value1').val();
-    data.b = $('#value2').val();
-    data.c = $('#value3').val();
-    $.ajax({
-      type: 'POST',
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      url: 'http://localhost:4000/registration',
-      // url: 'https://nodehelloworld.herokuapp.com/registration',
-      success: function(data) {
-        window.location = 'mcq.html'
-
-      }
-
-
-    });
-
-  });
-</script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/javascript/functions.js"></script>
+<script src="/javascript/init.js"></script>
 
 </html>

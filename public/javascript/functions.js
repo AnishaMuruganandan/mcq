@@ -1,16 +1,39 @@
-var result;
-var questionNoStart;
-var questionNoEnd;
-var dataposition;
-jsonObj = [];
+var serviceDeclarationJS = {
+// result,
+//  questionNoStart,
+//  questionNoEnd,
+  marks : 0,
+//  dataposition,
+ jsonObj : [],
 //  e.preventDefault();
-$(document).ready(function() {
+
+register : function(){
+
+      console.log('button clicked');
+
+      var data = {};
+      data.name = $('#nameinput').val();
+      data.phoneno = $('#phonenoinput').val();
+      data.password = $('#passwordinput').val();
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: '/registration',
+        // url: 'https://nodehelloworld.herokuapp.com/registration',
+        success: function(data) {
+          console.log(data[data.length-1].name);
+          var name = data[data.length-1].name;
+  $.cookie('username', name );
+          window.location = 'mcq.html';
+
+        }
 
 
+      });
 
-
-
-
+},
+fetchquestionandtimer : function() {
 
 
   // Set the date we're counting down to
@@ -38,13 +61,9 @@ $(document).ready(function() {
     if (distance < 0) {
       clearInterval(x);
       document.getElementById("time").innerHTML = "EXPIRED";
-      $('#submit').on('click', resultcalculation);
+      $('#submit').on('click', serviceDeclarationJS.resultcalculation);
     }
   }, 1000);
-
-
-
-
 
 
   $('#submit').hide();
@@ -59,12 +78,13 @@ $(document).ready(function() {
         type: 'GET',
         url: '/mcqFetching',
         // result = data,
-        // console.log(data);
+
         success: function(data) {
+          console.log(data);
           result = data;
-          questionNoStart = 1;
-          questionNoEnd = data.length;
-          // console.log('result', result);
+       questionNoStart = 1;
+        questionNoEnd = data.length;
+           console.log('result', result);
           resolve(data);
         },
         error: function(xhr) {
@@ -76,8 +96,8 @@ $(document).ready(function() {
   // console.log('result', result);
   //  ajax();
   ajax().then(function(data) {
-    dataposition = 0;
-    result = data;
+     dataposition = 0;
+     result = data;
     console.log('result', result);
     console.log('common data', data);
     $('#questionNo').html("Question " + questionNoStart + " out of " + questionNoEnd);
@@ -91,12 +111,12 @@ $(document).ready(function() {
   }).catch(function(reason) {
     console.log('reason for rejection', reason)
   });
-});
-$('#next').click(function() {
+},
+nextmcq: function(){
 
 
 
-  $('#previous').on('click', previousclick);
+  $('#previous').on('click', serviceDeclarationJS.previousmcq);
 
   console.log(questionNoStart);
   console.log(result.length - 1);
@@ -105,7 +125,7 @@ $('#next').click(function() {
   if (questionNoStart == (result.length - 1)) {
     $('#next').hide();
     $('#submit').show();
-    $('#submit').on('click', resultcalculation);
+    $('#submit').on('click', serviceDeclarationJS.resultcalculation);
     console.log('id changed' + $('#submit').attr('id'));
   }
 
@@ -125,10 +145,10 @@ $('#next').click(function() {
 
 
 
-});
+},
 
 
-function previousclick() {
+previousmcq: function(){
   $('#next').show();
   $('#submit').hide();
   $('#next').html("Next");
@@ -152,70 +172,71 @@ function previousclick() {
 
 
 
-}
-var j = 0;
-var returnedvalue;
-$('#optiona').click(function() {
+},
+ j : 0,
+ // var returnedvalue,
+optiona : function(){
   item = {};
-  returnedvalue = findingindex();
+  returnedvalue = serviceDeclarationJS.findingindex();
   if (returnedvalue == -1) {
     item["questionNo"] = questionNoStart;
     item["answer"] = "a";
 
-    jsonObj.push(item);
+    serviceDeclarationJS.jsonObj.push(item);
 
   } else {
-    jsonObj[returnedvalue].answer = "a";
+    serviceDeclarationJS.jsonObj[returnedvalue].answer = "a";
   }
-  console.log(jsonObj);
-});
-$('#optionb').click(function() {
+  console.log(serviceDeclarationJS.jsonObj);
+},
+optionb : function(){
   item = {};
-  returnedvalue = findingindex();
+  returnedvalue = serviceDeclarationJS.findingindex();
   if (returnedvalue == -1) {
     item["questionNo"] = questionNoStart;
     item["answer"] = "b";
 
-    jsonObj.push(item);
+    serviceDeclarationJS.jsonObj.push(item);
   } else {
-    jsonObj[returnedvalue].answer = "b";
+    serviceDeclarationJS.jsonObj[returnedvalue].answer = "b";
   }
-  console.log(jsonObj);
-});
-$('#optionc').click(function() {
+  console.log(serviceDeclarationJS.jsonObj);
+},
+optionc : function() {
   item = {};
-  returnedvalue = findingindex();
+  returnedvalue = serviceDeclarationJS.findingindex();
   console.log(returnedvalue);
   if (returnedvalue == -1) {
     item["questionNo"] = questionNoStart;
     item["answer"] = "c";
 
-    jsonObj.push(item);
+    serviceDeclarationJS.jsonObj.push(item);
   } else {
-    jsonObj[returnedvalue].answer = "c";
+    serviceDeclarationJS.jsonObj[returnedvalue].answer = "c";
   }
-  console.log(jsonObj);
-});
-$('#optiond').click(function() {
+  console.log(serviceDeclarationJS.jsonObj);
+},
+optiond : function()  {
   item = {};
-  returnedvalue = findingindex();
+  returnedvalue = serviceDeclarationJS.findingindex();
   if (returnedvalue == -1) {
     item["questionNo"] = questionNoStart;
     item["answer"] = "d";
 
-    jsonObj.push(item);
+    serviceDeclarationJS.jsonObj.push(item);
   } else {
-    jsonObj[returnedvalue].answer = "d";
+    serviceDeclarationJS.jsonObj[returnedvalue].answer = "d";
   }
-  console.log(jsonObj);
-});
-var bool = false;
-var index;
+  console.log(serviceDeclarationJS.jsonObj);
+},
 
-function findingindex() {
-  $.each(jsonObj, function(i, item) {
+ // index,
 
-    if (jsonObj[i].questionNo == questionNoStart) {
+findingindex: function() {
+   var bool = false
+  $.each(serviceDeclarationJS.jsonObj, function(i, item) {
+
+    if (serviceDeclarationJS.jsonObj[i].questionNo == questionNoStart) {
       bool = true;
       index = i;
     }
@@ -231,25 +252,48 @@ function findingindex() {
     bool = false;
   }
   return index;
-}
-var marks = 0;
+},
 
-function resultcalculation() {
+
+resultcalculation: function()  {
 
   $.each(result, function(i, item) {
-    $.each(jsonObj, function(j, jsonkey) {
-      if (result[i].questionno == jsonObj[j].questionNo) {
-        if (result[i].answer == jsonObj[j].answer) {
-          marks += 1;
+    $.each(serviceDeclarationJS.jsonObj, function(j, jsonkey) {
+      if (result[i].questionno == serviceDeclarationJS.jsonObj[j].questionNo) {
+        if (result[i].answer == serviceDeclarationJS.jsonObj[j].answer) {
+          serviceDeclarationJS.marks =serviceDeclarationJS.marks + 1;
         }
       }
     })
 
   })
-  console.log('marks ' + marks);
-  $('#score').html("marks");
+  console.log('marks ' + serviceDeclarationJS.marks);
 
-   window.location.replace('display.html');
-   document.getElementById("score").innerHTML="hello";
 
+   window.location.replace("display.html"+"?marks="+serviceDeclarationJS.marks);
+
+
+},
+
+
+marksscored: function() {
+  var hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+   for(var i = 0; i < hashes.length; i++)
+   {
+       hash = hashes[i].split('=');
+     }
+      console.log('marks ' + hash[1]);
+      var score=hash[1]*10;
+      $('#namedisplay').html($.cookie('username'));
+if(score>=50){
+$(".name").after("<div><img src='/img/pass.png'></div>");
 }
+else{
+$(".name").after("<div><img src='/img/fail.png'></div>");
+}
+
+   $("#score").html("You Scored "+score+"%");
+
+ }
+};

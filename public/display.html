@@ -9,18 +9,24 @@
 
 <body>
   <div class="registrationpage">
+
     <div class="registrationcard">
-      <div class="photo photooutline">
+      <div class="heading">
+        <span class="headingstyle fontstyle">Result
+    </span>
+      </div>
+
+      <div class="name">
+        <span class="heystyle fontstyle" id="hey">Hey</span>
+        <span class="headingstyle fontstyle" id="namedisplay">  </span>
+        <span class="heystyle fontstyle" id="hey">!!!</span>
 
       </div>
-      <div class="inputbox">
-        <!-- <div class="name">
-          <span class="fontstyle nameboxstyle">Hey Name!!!</span>
-        </div> -->
 
-        <div class="name">
-          <span class="fontstyle resultstyle" id="score"> hwy</span>
-        </div>
+      <div class="result">
+        <span class="fontstyle resultstyle" id="score">
+        </span>
+
       </div>
     </div>
     <div class="topbluecircle">
@@ -39,9 +45,13 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/javascript/functions.js"></script>
-<!-- <script type=" text/javascript ">
-  $("#score").load("mcq.html marks");
-</script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/javascript/init.js"></script>
+<script>
+  $('document').ready(function() {
+    serviceDeclarationJS.marksscored();
+  });
+</script>
 
 
 </html>
