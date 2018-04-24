@@ -19,8 +19,8 @@ register : function(){
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
-        url: '/registration',
-        // url: 'https://nodehelloworld.herokuapp.com/registration',
+      //  url: '/registration',
+         url: 'https://multiplechoicequestion.herokuapp.com/registration',
         success: function(data) {
           console.log(data[data.length-1].name);
           var name = data[data.length-1].name;
@@ -76,7 +76,7 @@ fetchquestionandtimer : function() {
     return new Promise(function(resolve, reject) {
       $.ajax({
         type: 'GET',
-        url: '/mcqFetching',
+        url: 'https://multiplechoicequestion.herokuapp.com/mcqFetching',
         // result = data,
 
         success: function(data) {
