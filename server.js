@@ -80,7 +80,7 @@ res.send(result);
 })
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'www')));
 
 
 const MongoClient = require('mongodb').MongoClient
